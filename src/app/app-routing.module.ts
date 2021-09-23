@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'period-picker',
+    loadChildren: () => import('./period-picker/period-picker.module').then( m => m.PeriodPickerPageModule)
+  },
 ];
 
 @NgModule({

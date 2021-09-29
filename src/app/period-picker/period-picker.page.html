@@ -1,9 +1,49 @@
-<ion-header>
+<ion-header translucent>
   <ion-toolbar>
-    <ion-title>periodPicker</ion-title>
+    <ion-title>
+      주기 기억하기
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content>  
+  <ion-list> 
+    <ion-item>
+      <ion-label color="primary">최근 1일차, 혹은 예상 1일차</ion-label>
+        <ion-button size="small" slot="end"
+        (click)="firstDay.open();">날짜 선택</ion-button>                
+    </ion-item>
+    <ion-item>
+      <ion-datetime [min]="minDate()" [max]="maxDate()" displayFormat="YYYY-MM-DD" #firstDay 
+      [(ngModel)] = "firstDayOnScreen" 
+      (ionChange)= "getFirstDay()"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">당신의 주기는 며칠인가요?</ion-label>
+      <ion-button size="small" slot="end"
+        (click)="getPeriodDays();" >
+        주기 선택
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      {{ periodDaysOnScreen }}
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">기억이 정확히 나지 않으세요?</ion-label>
+      <ion-button size="small" slot="end"
+        (click)="showPickerGuide()">
+      네
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      {{ guide }}
+    </ion-item>
+  </ion-list> 
 </ion-content>
+<ion-footer>
+  <ion-button (click)="pushHomePage()" expand="full">
+    <!-- routerLink="/" routerDirection="back" -->
+    <ion-icon name="chevron-forward-outline" ></ion-icon>
+    카드 고르기
+  </ion-button>
+</ion-footer>

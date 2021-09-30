@@ -3,6 +3,6 @@ export interface CardsTimePeriod {
     threeCards: number[],
     isCardSelected: Boolean,
     selectedCard: number,
-    yourPeriod: number,
+    periodDays: number,
     firstDay: Date
 }

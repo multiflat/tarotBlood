@@ -1,4 +1,4 @@
-export interface CardsTimePeriod {
+export interface CardsInfo {
     timeStamp: Date,
     threeCards: number[],
     isCardSelected: Boolean,

@@ -31,7 +31,7 @@
     <ion-item>
       <ion-label color="primary">기억이 정확히 나지 않으세요?</ion-label>
       <ion-button size="small" slot="end"
-        (click)="showPickerGuide()">
+        (click)="showGuide()">
       네
       </ion-button>
     </ion-item>
@@ -41,8 +41,7 @@
   </ion-list> 
 </ion-content>
 <ion-footer>
-  <ion-button (click)="pushHomePage()" expand="full">
-    <!-- routerLink="/" routerDirection="back" -->
+  <ion-button (click)="goHomePage()" expand="full">
     <ion-icon name="chevron-forward-outline" ></ion-icon>
     카드 고르기
   </ion-button>

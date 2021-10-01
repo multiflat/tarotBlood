@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-//import { Storage } from '@ionic/storage-angular';
+import { Storage } from '@ionic/storage-angular';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-//import { CardsArrayNoService } from './services/cards-array-no.service';
+import { CardsService } from './services/cards.service';
 
 @Component({
   selector: 'app-root',
@@ -17,20 +17,17 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    //private storage: Storage,
-    //private cardsArrayNoService: CardsArrayNoService
-  ) {
-    //this.storage.create()
-    this.initializeApp();
+    private storage: Storage,
+    private cardsService: CardsService
+  ) { this.storage.create()
+      this.initializeApp();
   }
   
 
   async initializeApp() {
-    
-    //await this.cardsArrayNoService.load();
-    
+    await this.cardsService.load();
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();//backgroundColorByHexString("#2dd36f"); -> 초록색
+      this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }

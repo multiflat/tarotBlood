@@ -1,0 +1,11 @@
+<div class="container" [style.backgroundImage]="'url(./assets/' + this.card.picture + ')'">
+  <div class="controls">
+    <div class="info">
+      <h2>{{ this.card.name }}</h2>
+      <p>{{ this.card.fortune }}</p>
+    </div>
+    <ion-button (click)="selectCardEmit()" color="light" class="like">
+      <ion-icon name="heart"></ion-icon>
+    </ion-button>
+  </div>
+</div>

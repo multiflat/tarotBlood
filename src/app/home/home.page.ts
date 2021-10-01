@@ -4,7 +4,7 @@ import { Card } from "../interfaces/card";
 import { CardsService } from "../services/cards.service";
 import { DayAlarmService } from "../services/day-alarm.service"
 import { CardsInfo } from '../interfaces/cardsInfo';
-import { cardFortunes } from "../data/cardFortunes";
+import { cardFortunes } from "./data/cardFortunes";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -46,7 +46,7 @@ export class HomePage implements OnInit {
         .subscribe((cardsInfo)=>{
           this.cardsInfo = cardsInfo;
           if(this.cardsInfo.threeCardsNumber === null){
-            this.navCtrl.navigateRoot("periodPicker");
+            this.navCtrl.navigateRoot("period-picker");
           } else {
             if(this.cardsInfo.isCardSelected){
               this.selectedCard = cardFortunes[this.cardsInfo.selectedCardNumber];
@@ -54,7 +54,7 @@ export class HomePage implements OnInit {
             this.cards = [cardFortunes[this.cardsInfo.threeCardsNumber[0]],
                           cardFortunes[this.cardsInfo.threeCardsNumber[1]], 
                           cardFortunes[this.cardsInfo.threeCardsNumber[2]]];
-            this.dummyData = [...this.cards];// 카드를 넘기면서 배열에서 카드를 제거하게 된다. 다 넘기고 나면 다시 채워야 하므로 복사본을 저장해두는 것이다.
+            this.dummyData = [...this.cards];
           }
         });
   }
@@ -83,7 +83,7 @@ export class HomePage implements OnInit {
       ev.id,
       new Date(),
       this.cardsInfo.isCardSelected,
-      this.selectedCard
+      this.cardsInfo.selectedCardNumber
     )
   }
 }

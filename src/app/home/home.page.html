@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding" >
-  <app-card-stack *ngIf = "!this.isCardSelected" (infinite)="loadMore($event)">
+  <app-card-stack *ngIf = "!this.cardsInfo.isCardSelected" (infinite)="loadMore($event)">
     <app-card 
       *ngFor="let card of cards"
       [card]="card"
@@ -12,7 +12,7 @@
       (selectCard)="selectCard($event)"
     ></app-card>
   </app-card-stack>
-  <div *ngIf = "this.isCardSelected" class="container" [style.backgroundImage]="'url(./assets/' + this.selectedCard.picture + ')'">
+  <div *ngIf = "this.cardsInfo.isCardSelected" class="container" [style.backgroundImage]="'url(./assets/' + this.selectedCard.picture + ')'">
     <div class="info">
       <h2>{{ this.selectedCard.name }}</h2>
       <p>{{ this.selectedCard.fortune }}</p>
@@ -24,10 +24,10 @@
     <ion-tab-button>
       <ion-icon name="information-circle-outline"></ion-icon>
     </ion-tab-button>  
-     <ion-tab-button (click)="handleWatched($event)"> <!-- 임시추가-->
+     <ion-tab-button (click)="handleWatched($event)"> 
       <ion-icon name="heart-outline"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button routerLink="/periodPicker">
+    <ion-tab-button routerLink="/period-picker">
       <ion-icon name="settings-outline" ></ion-icon>
     </ion-tab-button>
   </ion-tab-bar>

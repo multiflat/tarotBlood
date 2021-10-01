@@ -3,8 +3,6 @@ import { IonDatetime, PickerController, AlertController, NavController } from "@
 import { PickerOptions } from "@ionic/core";
 import { Subscription } from 'rxjs';
 import { CardsService } from 'src/app/services/cards.service';
-import { CardsInfo } from '../interfaces/cardsInfo';
-
 
 @Component({
   selector: 'app-period-picker',

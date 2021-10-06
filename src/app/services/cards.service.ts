@@ -30,7 +30,7 @@ export class CardsService {
 
   async load(): Promise<void> {
     if(!this.loaded){
-      const cardsInfo: CardsInfo = await this.storage.get("cardsTimePeriod");
+      const cardsInfo: CardsInfo = await this.storage.get("cardsInfo");
       if(cardsInfo !== null
       ){  const now = new Date();
           const dayDifference = this.getDayDifference(cardsInfo.timeStamp, now);

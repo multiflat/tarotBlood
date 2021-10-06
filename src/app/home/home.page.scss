@@ -11,20 +11,45 @@ ion-tab-bar {
 }
 
 .container {
-  background-color: #fbfbfb;
-  background-size: cover;
-  height: 100%;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-}
-
-.info {
+  //background-color: #fbfbfb;
+  //background-size: cover;
+  //height: 100%;
+  //border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  text-align: center;
-  color: #fff;
+  // justify-content: flex-start;//설정할 경우 .
+  // align-items: flex-start;
+  text-align: justify;
+  // align-content: flex-start;
+  // align-items: flex-start;
 }
+
+.fortuneWithPicture{
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.title{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.fortune{
+  margin-right: 10px;
+  //padding: 10px;
+}
+
+.moreInfo{
+  margin: 50px 0px 0px 0px;
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
+img {
+   margin-top: 15px;
+   width: 50%;
+   height: 50%;
+ }

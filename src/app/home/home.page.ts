@@ -75,15 +75,15 @@ export class HomePage implements OnInit {
     this.selectedCard = ev;
     this.cardsInfo.selectedCardNumber= ev.id;
     this.cardsInfo.isCardSelected = true;
-    console.log('selectedCardOnScreen.picture in home selectCard:', this.selectedCard.picture);
     this.cardsInfo.threeCardsNumber = [ev.id-1, ev.id, ev.id+1];
-    this.cardsService.save3cards(
-      this.cardsInfo.firstDay,
-      this.cardsInfo.periodDays,
-      ev.id,
-      new Date(),
-      this.cardsInfo.isCardSelected,
-      this.cardsInfo.selectedCardNumber
-    )
+    const newCardsInfo= {
+      firstDay: this.cardsInfo.firstDay,
+      periodDays: this.cardsInfo.periodDays,
+      threeCardsNumber: this.cardsInfo.threeCardsNumber,
+      timeStamp: new Date(),
+      isCardSelected: this.cardsInfo.isCardSelected,
+      selectedCardNumber: this.cardsInfo.selectedCardNumber
+    }
+    this.cardsService.saveCardsInfo(newCardsInfo);
   }
 }

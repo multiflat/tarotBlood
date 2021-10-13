@@ -57,6 +57,7 @@ export class HomePage implements OnInit {
                           cardFortunes[this.cardsInfo.threeCardsNumber[1]], 
                           cardFortunes[this.cardsInfo.threeCardsNumber[2]]];
             this.cardOnScreen = this.cards[this.cards.length - 1];
+            console.log('card:', this.cardOnScreen);
             this.dummyData = [...this.cards];
           }
         });
@@ -67,7 +68,9 @@ export class HomePage implements OnInit {
       let cardToAdd = [...this.dummyData];
       this.cards.push(...cardToAdd);
       complete();
+      this.cardOnScreen = this.cards[this.cards.length - 1];
     }, 500);
+    
   }
 
   handleSwiped(ev) {

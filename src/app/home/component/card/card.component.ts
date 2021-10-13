@@ -41,7 +41,7 @@ export class CardComponent implements AfterViewInit, OnDestroy {
     private gestureCtrl: GestureController,
     private animationCtrl: AnimationController,
     private zone: NgZone
-  ) {}
+  ) { }
 
   ngAfterViewInit() {
     const resizeObserver = new ResizeObserver(() => {

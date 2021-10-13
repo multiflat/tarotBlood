@@ -6,6 +6,7 @@
     <div class="info">
       <h2>{{ this.card.name }}</h2>
       <p>{{ this.card.fortune }}</p>
+      <p>{{ this.withFortune }}</p>
     </div>
     <ion-button (click)="selectCardEmit()" color="light" class="like">
       <ion-icon name="heart"></ion-icon>
@@ -16,12 +17,12 @@
   *ngIf = "withFortune"
 > 
   <div class="title">
-    <h2>{{ this.selectedCard.name }}</h2>
+    <h2>{{ this.card.name }}</h2>
     <h5>subtitle</h5>
   </div>
   <div class="pictureWithFortune">
-    <p class="fortune">{{ this.selectedCard.fortune }}</p>
-    <img [src] = "'./assets/' + this.selectedCard.picture" alt="this.selectedCard.name">
+    <p class="fortune">{{ this.card.fortune }}</p>
+    <img [src] = "'../../assets/' + this.card.picture" alt="this.card.name">
   </div>
   <div class="moreInfo">
     <p>더 자세한 내용을 알고 싶으시다면...</p>

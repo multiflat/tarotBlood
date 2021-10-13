@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, EventEmitter  } from "@angular/core";
 import { NavController } from "@ionic/angular";
 import { Card } from "../interfaces/card";
 import { CardsService } from "../services/cards.service";
@@ -24,6 +24,7 @@ export class HomePage implements OnInit {
   //public isCardSelected: Boolean;
   //private selectedCardNumber: number;
   public selectedCard: Card;
+  public withFortune = false;
   
   constructor(
     private cardsService: CardsService,
@@ -85,5 +86,9 @@ export class HomePage implements OnInit {
       this.cardsInfo.isCardSelected,
       this.cardsInfo.selectedCardNumber
     )
+  }
+
+  showOrHideFortune(){
+    this.withFortune = !this.withFortune;
   }
 }

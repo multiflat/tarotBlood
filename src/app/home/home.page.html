@@ -3,7 +3,7 @@
       <!-- <ion-title size="small">타로 블러드</ion-title>  -->
       <ion-title size="large">첫번째 카드</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="this.showOrHideFortune()">///
+      <ion-button (click)="this.showOrHideFortune()">
         <ion-icon src="./assets/icon/md-arrow-dropright.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -14,9 +14,9 @@
     <app-card 
       *ngFor="let card of cards"
       [card]="card"
+      [withFortune]="this.withFortune"
       (watched)="handleWatched($event)"
       (selectCard)="selectCard($event)"
-      (withFortune)="this.withFortune"
     ></app-card>
   </app-card-stack>
 </ion-content>

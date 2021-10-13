@@ -68,7 +68,7 @@ export class HomePage implements OnInit {
     }, 500);
   }
 
-  handleWatched(ev) {
+  handleSwiped(ev) {
     const index = this.cards.indexOf(ev);
     this.cards.splice(index, 1);
   }

@@ -14,7 +14,7 @@
     <app-card 
       *ngFor="let card of cards"
       [card]="card"
-      (watched)="handleWatched($event)"
+      (watched)="handleSwiped($event)"
       (selectCard)="selectCard($event)"
     ></app-card>
   </app-card-stack>

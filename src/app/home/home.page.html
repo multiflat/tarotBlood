@@ -3,34 +3,22 @@
       <!-- <ion-title size="small">타로 블러드</ion-title>  -->
       <ion-title size="large">첫번째 카드</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="nextCard()">
+      <ion-button (click)="this.showOrHideFortune()">///
         <ion-icon src="./assets/icon/md-arrow-dropright.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding" >
-  <app-card-stack *ngIf = "!this.cardsInfo.isCardSelected" (infinite)="loadMore($event)">
+  <app-card-stack (infinite)="loadMore($event)">
     <app-card 
       *ngFor="let card of cards"
       [card]="card"
       (watched)="handleWatched($event)"
       (selectCard)="selectCard($event)"
+      (withFortune)="this.withFortune"
     ></app-card>
   </app-card-stack>
-  <div *ngIf = "this.cardsInfo.isCardSelected" class="container"> 
-    <div class="title">
-      <h2>{{ this.selectedCard.name }}</h2>
-      <h5>subtitle</h5>
-    </div>
-    <div class="fortuneWithPicture">
-      <p class="fortune">{{ this.selectedCard.fortune }}</p>
-      <img [src] = "'./assets/' + this.selectedCard.picture" alt="this.selectedCard.name">
-    </div>
-    <div class="moreInfo">
-      <p>더 자세한 내용을 알고 싶으시다면...</p>
-    </div>
-  </div>
 </ion-content>
 <ion-footer>
   <ion-tab-bar>

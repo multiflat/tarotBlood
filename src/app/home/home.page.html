@@ -20,12 +20,12 @@
   </app-card-stack>
   <div *ngIf = "this.withFortune" class="container"> 
     <div class="title">
-      <h2>{{ this.selectedCard.name }}</h2>
+      <h2>{{ this.cardOnScreen.name }}</h2>
       <h5>subtitle</h5>
     </div>
     <div class="fortuneWithPicture">
-      <p class="fortune">{{ this.selectedCard.fortune }}</p>
-      <img [src] = "'./assets/' + this.selectedCard.picture" alt="this.selectedCard.name">
+      <p class="fortune">{{ this.cardOnScreen.fortune }}</p>
+      <img [src] = "'./assets/' + this.cardOnScreen.picture" alt="this.selectedCard.name">
     </div>
     <div class="moreInfo">
       <p>더 자세한 내용을 알고 싶으시다면...</p>

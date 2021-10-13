@@ -90,5 +90,6 @@ export class HomePage implements OnInit {
 
   showOrHideFortune(){
     this.withFortune = !this.withFortune;
+    console.log("withFortune:", this.withFortune);
   }
 }

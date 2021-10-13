@@ -26,6 +26,7 @@ declare var ResizeObserver;
 })
 export class CardComponent implements AfterViewInit, OnDestroy {
   @Input("card") card: Card;
+  @Input("withFortune") withFortune: Boolean; 
   @Output("watched") watched: EventEmitter<any> = new EventEmitter();
   @Output("selectCard") selectCard: EventEmitter<any> = new EventEmitter();
 

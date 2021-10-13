@@ -20,6 +20,21 @@
   align-items: flex-end;
 }
 
+.containerWithFortune {
+  //background-color: #fbfbfb;
+  //background-size: cover;
+  //height: 100%;
+  //border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  // justify-content: flex-start;//설정할 경우 .mordInfo와 충돌 왜?
+  // align-items: flex-start;
+  text-align: justify;
+  // align-content: flex-start;
+  // align-items: flex-start;
+}
+
+
 .controls {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
@@ -44,3 +59,46 @@
   width: 50px;
   height: 50px;
 }
+
+.containerWithFortune {
+  //background-color: #fbfbfb;
+  //background-size: cover;
+  //height: 100%;
+  //border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  // justify-content: flex-start;//설정할 경우 .mordInfo와 충돌 왜?
+  // align-items: flex-start;
+  text-align: justify;
+  // align-content: flex-start;
+  // align-items: flex-start;
+}
+
+.pictureWithFortune{
+  display: flex;
+  flex-direction: row;
+}
+
+.title{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.fortune{
+  margin-right: 10px;
+  //padding: 10px;
+}
+
+.moreInfo{
+  margin: 50px 0px 0px 0px;
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
+img {
+   margin-top: 15px;
+   width: 50%;
+   height: 50%;
+ }

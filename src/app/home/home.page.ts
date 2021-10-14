@@ -26,7 +26,9 @@ export class HomePage implements OnInit {
   //private selectedCardNumber: number;
   public selectedCard: Card;
   public withFortune = false;
-  
+  public titles: string[] = ['첫번째 카드', '두번째 카드', '세번째 카드'];
+  private titleIndex: number = 0;
+
   constructor(
     private cardsService: CardsService,
     private navCtrl: NavController,
@@ -71,20 +73,20 @@ export class HomePage implements OnInit {
       this.cards.push(...cardToAdd);
       complete();
       this.checkCardOnScreen();
-    }, 500);
-    
+    }, 500);   
   }
 
   handleSwiped(ev) {
+    this.titleIndex = (this.titleIndex + 1)%3;
     const index = this.cards.indexOf(ev);
     this.cards.splice(index, 1);
     this.checkCardOnScreen();
+    
   }
   selectCard(ev){
     this.selectedCard = ev;
     this.cardsInfo.selectedCardNumber= ev.id;
     this.cardsInfo.isCardSelected = true;
-    console.log('selectedCardOnScreen.picture in home selectCard:', this.selectedCard.picture);
     this.cardsInfo.threeCardsNumber = [ev.id-1, ev.id, ev.id+1];
     this.cardsService.save3cards(
       this.cardsInfo.firstDay,

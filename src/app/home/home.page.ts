@@ -56,11 +56,13 @@ export class HomePage implements OnInit {
             this.cards = [cardFortunes[this.cardsInfo.threeCardsNumber[0]],
                           cardFortunes[this.cardsInfo.threeCardsNumber[1]], 
                           cardFortunes[this.cardsInfo.threeCardsNumber[2]]];
-            this.cardOnScreen = this.cards[this.cards.length - 1];
-            console.log('card:', this.cardOnScreen);
+            this.checkCardOnScreen();
             this.dummyData = [...this.cards];
           }
         });
+  }
+  checkCardOnScreen(){
+    this.cardOnScreen = this.cards[this.cards.length - 1];
   }
 
   loadMore(complete) {
@@ -68,7 +70,7 @@ export class HomePage implements OnInit {
       let cardToAdd = [...this.dummyData];
       this.cards.push(...cardToAdd);
       complete();
-      this.cardOnScreen = this.cards[this.cards.length - 1];
+      this.checkCardOnScreen();
     }, 500);
     
   }
@@ -76,8 +78,8 @@ export class HomePage implements OnInit {
   handleSwiped(ev) {
     const index = this.cards.indexOf(ev);
     this.cards.splice(index, 1);
-    this.cardOnScreen = this.cards[this.cards.length - 1];
-    console.log('card:', this.cardOnScreen);//this.cards[this.cards.length - 1]);
+    this.checkCardOnScreen();
+    console.log('card in handleSwiped:', this.cardOnScreen);//this.cards[this.cards.length - 1]);
   }
   selectCard(ev){
     this.selectedCard = ev;

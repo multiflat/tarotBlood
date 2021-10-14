@@ -1,36 +1,61 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
       <!-- <ion-title size="small">타로 블러드</ion-title>  -->
-      <ion-title size="large">첫번째 카드</ion-title>
+      <ion-title size="small"> 타로 블러드 : 
+        <span *ngIf="!this.cardsInfo.isCardSelected">{{ this.titles[titleIndex] }}</span>
+        <span *ngIf="this.cardsInfo.isCardSelected">오늘의 카드</span>
+      </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="showOrHideFortune()">
-        <ion-icon src="./assets/icon/md-arrow-dropright.svg"></ion-icon>
+        <ion-icon name="help-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding" >
-  <app-card-stack *ngIf = "!this.withFortune" (infinite)="loadMore($event)">
-    <app-card 
-      *ngFor="let card of cards"
-      [card]="card"
-      (watched)="handleSwiped($event)"
-      (selectCard)="selectCard($event)"
-    ></app-card>
-  </app-card-stack>
-  <div *ngIf = "this.withFortune" class="container"> 
-    <div class="title">
-      <h2>{{ this.cardOnScreen.name }}</h2>
-      <h5>subtitle</h5>
+  <span class="beforeSelected"  *ngIf="!this.cardsInfo.isCardSelected">
+    <app-card-stack *ngIf = "!this.withFortune" (infinite)="loadMore($event)">
+      <app-card 
+        *ngFor="let card of cards"
+        [card]="card"
+        (watched)="handleSwiped($event)"
+        (selectCard)="selectCard($event)"
+      ></app-card>
+    </app-card-stack>
+    <div *ngIf = "this.withFortune" class="containerWithFortune"> 
+      <div class="title">
+        <h2>{{ this.cardOnScreen.name }}</h2>
+        <h5>subtitle</h5>
+      </div>
+      <div class="fortuneWithPicture">
+        <p class="fortune">{{ this.cardOnScreen.fortune }}</p>
+        <img [src] = "'./assets/' + this.cardOnScreen.picture" alt="this.selectedCard.name">
+      </div>
+      <div class="moreInfo">
+        <p>더 자세한 내용을 알고 싶으시다면...</p>
+      </div>
     </div>
-    <div class="fortuneWithPicture">
-      <p class="fortune">{{ this.cardOnScreen.fortune }}</p>
-      <img [src] = "'./assets/' + this.cardOnScreen.picture" alt="this.selectedCard.name">
+  </span>
+  <span  *ngIf="this.cardsInfo.isCardSelected" class="afterSelected">
+    <div  *ngIf = "!this.withFortune"
+      class ="selectedCardWithoutFortune"
+      [style.backgroundImage]="'url(./assets/' + this.selectedCard.picture + ')'">
     </div>
-    <div class="moreInfo">
-      <p>더 자세한 내용을 알고 싶으시다면...</p>
+    <div *ngIf = "this.withFortune" class="containerWithFortune">
+      <div class="title">
+        <h2>{{ this.selectedCard.name }}</h2>
+        <h5>subtitle</h5>
+      </div>
+      <div class="fortuneWithPicture">
+        <p class="fortune">{{ this.selectedCard.fortune }}</p>
+        <img [src] = "'./assets/' + this.selectedCard.picture" alt="this.selectedCard.name">
+      </div>
+      <div class="moreInfo">
+        <p>더 자세한 내용을 알고 싶으시다면...</p>
+      </div>
     </div>
-  </div>
+    
+  </span>
 </ion-content>
 <ion-footer>
   <ion-tab-bar>

@@ -79,7 +79,6 @@ export class HomePage implements OnInit {
     const index = this.cards.indexOf(ev);
     this.cards.splice(index, 1);
     this.checkCardOnScreen();
-    console.log('card in handleSwiped:', this.cardOnScreen);//this.cards[this.cards.length - 1]);
   }
   selectCard(ev){
     this.selectedCard = ev;

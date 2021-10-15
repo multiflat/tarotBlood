@@ -83,6 +83,8 @@ export class CardsService {
     );
   }
 
+
+
   async save3cards(firstDay: Date, periodDays: number, cardsArrayNo: number, now: Date, isCardSelected:Boolean, selectedCardNumber: number): Promise<void> {
     this.threeCards = this.getCardsArray(periodDays)[cardsArrayNo];
     const threeCardsInProgress: number[] = [  this.threeCards[0][0], // 임시로
@@ -96,9 +98,15 @@ export class CardsService {
       isCardSelected: isCardSelected,
       selectedCardNumber: selectedCardNumber
     }
+    
+  } 
+  async saveCardsInfo(cardsInfo: CardsInfo): Promise<void>{
     this.cardsInfo$.next(cardsInfo);
     this.storage.set("cardsInfo", cardsInfo);
-  } 
+  }
+
+
+
 
 
   getDayDifference(pastDate: Date, date: Date): number{

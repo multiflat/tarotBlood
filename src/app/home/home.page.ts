@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
   public cardOnScreen: Card;
   private cardsInfo: CardsInfo;
   private dummyData: Card[] = [];
-  private cardFortunes: Card[];
+  private cardFortunes: Card[] = cardFortunes;
 
   private cardsInfoSubscription: Subscription;
   private daySubscription: Subscription;
@@ -53,27 +53,30 @@ export class HomePage implements OnInit {
             this.navCtrl.navigateRoot("period-picker");
           } else {
             if(this.cardsInfo.isCardSelected){
-              this.selectedCard = cardFortunes[this.cardsInfo.selectedCardNumber];
+              this.selectedCard = this.cardFortunes[this.cardsInfo.selectedCardNumber];
             }
-            this.cards = [  cardFortunes[this.cardsInfo.threeCardsNumber[0]],
-                            cardFortunes[this.cardsInfo.threeCardsNumber[1]], 
-                            cardFortunes[this.cardsInfo.threeCardsNumber[2]]
-                          ];
-            this.checkCardOnScreen();
-            this.dummyData = [...this.cards];
+            this.temporarySelect3Cards();
           }
         });
   }
+
+  private temporarySelect3Cards(){//임시
+          this.cards = [  this.cardFortunes[this.cardsInfo.threeCardsNumber[0]],
+                          this.cardFortunes[this.cardsInfo.threeCardsNumber[1]], 
+                          this.cardFortunes[this.cardsInfo.threeCardsNumber[2]]
+                        ];
+          this.checkCardOnScreen();
+          this.dummyData = [...this.cards];
+  }
+
   refresh3cards(){
     if(this.cardsInfo.isCardSelected === true){
       this.cardsInfo.isCardSelected = false;
     } else {
-      this.cards = [  cardFortunes[this.cardsInfo.threeCardsNumber[0] + 3], //temporary
-                    cardFortunes[this.cardsInfo.threeCardsNumber[1] + 3], //temporary
-                    cardFortunes[this.cardsInfo.threeCardsNumber[2] + 3] //temporary
-                  ];
-      this.checkCardOnScreen();
-      this.dummyData = [...this.cards];
+      this.cardsInfo.threeCardsNumber[0] = this.cardsInfo.threeCardsNumber[0] + 3;//임시
+      this.cardsInfo.threeCardsNumber[1] = this.cardsInfo.threeCardsNumber[1] + 3;//임시
+      this.cardsInfo.threeCardsNumber[2] = this.cardsInfo.threeCardsNumber[2] + 3;//임시
+      this.temporarySelect3Cards();
     }
     console.log("refresh3cards")
   }

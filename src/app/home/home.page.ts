@@ -55,14 +55,30 @@ export class HomePage implements OnInit {
             if(this.cardsInfo.isCardSelected){
               this.selectedCard = cardFortunes[this.cardsInfo.selectedCardNumber];
             }
-            this.cards = [cardFortunes[this.cardsInfo.threeCardsNumber[0]],
-                          cardFortunes[this.cardsInfo.threeCardsNumber[1]], 
-                          cardFortunes[this.cardsInfo.threeCardsNumber[2]]];
+            this.cards = [  cardFortunes[this.cardsInfo.threeCardsNumber[0]],
+                            cardFortunes[this.cardsInfo.threeCardsNumber[1]], 
+                            cardFortunes[this.cardsInfo.threeCardsNumber[2]]
+                          ];
             this.checkCardOnScreen();
             this.dummyData = [...this.cards];
           }
         });
   }
+  refresh3cards(){
+    if(this.cardsInfo.isCardSelected === true){
+      this.cardsInfo.isCardSelected = false;
+    } else {
+      this.cards = [  cardFortunes[this.cardsInfo.threeCardsNumber[0] + 3], //temporary
+                    cardFortunes[this.cardsInfo.threeCardsNumber[1] + 3], //temporary
+                    cardFortunes[this.cardsInfo.threeCardsNumber[2] + 3] //temporary
+                  ];
+      this.checkCardOnScreen();
+      this.dummyData = [...this.cards];
+    }
+    console.log("refresh3cards")
+  }
+  
+  
   checkCardOnScreen(){
     this.cardOnScreen = this.cards[this.cards.length - 1];
   }
@@ -81,8 +97,9 @@ export class HomePage implements OnInit {
     const index = this.cards.indexOf(ev);
     this.cards.splice(index, 1);
     this.checkCardOnScreen();
-    
   }
+
+
   selectCard(ev){
     this.selectedCard = ev;
     this.cardsInfo.selectedCardNumber= ev.id;

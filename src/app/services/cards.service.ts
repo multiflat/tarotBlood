@@ -66,47 +66,36 @@ export class CardsService {
     return this.cardsInfo$;
   }
 
-  async select3cards(firstDayOnScreen: string, yourPeriodOnScreen: string, now: Date){
+  async select3cards(firstDayOnScreen: string, periodDaysOnScreen: string, now: Date){
     const firstDayStringTransform = new Date(firstDayOnScreen).toString().slice(0, 16) + "00:00:00";
     const firstDay = new Date(firstDayStringTransform);
-    const yourPeriodInNumber: number = parseInt(yourPeriodOnScreen.slice(0, yourPeriodOnScreen.length - 1)); //예) '28일'을 28로
+    
+    const periodDays: number = parseInt(periodDaysOnScreen.slice(0, periodDaysOnScreen.length - 1)); //예) '28일'을 28로
+    
     const dayDifference: number = this.getDayDifference(firstDay, now); 
-    const nowFromFirst = dayDifference % yourPeriodInNumber;
-    const cardsArrayNo = nowFromFirst < 0 ? nowFromFirst + yourPeriodInNumber : nowFromFirst; // 양수로 바꿔줌.    
-    this.save3cards(
-      firstDay, 
-      yourPeriodInNumber,
-      cardsArrayNo,
-      now,
-      false,
-      null
-    );
-  }
-
-
-
-  async save3cards(firstDay: Date, periodDays: number, cardsArrayNo: number, now: Date, isCardSelected:Boolean, selectedCardNumber: number): Promise<void> {
-    this.threeCards = this.getCardsArray(periodDays)[cardsArrayNo];
-    const threeCardsInProgress: number[] = [  this.threeCards[0][0], // 임시로
-                                              this.threeCards[1][0], // 임시로
-                                              this.threeCards[2][0]]// 임시로
+    const nowFromFirst = dayDifference % periodDays;
+    const cardsArrayNo = nowFromFirst < 0 ? nowFromFirst + periodDays : nowFromFirst; // 양수로 바꿔줌.    
+    
+    const threeCards = this.getCardsArray(periodDays)[cardsArrayNo];
+    const threeCardsInProgress: number[] = [  threeCards[0][0], // 임시로
+                                              threeCards[1][0], // 임시로
+                                              threeCards[2][0]]// 임시로
     const cardsInfo: CardsInfo = {
       threeCardsNumber: threeCardsInProgress,//임시로
       timeStamp: now,
       periodDays: periodDays,
       firstDay: firstDay,
-      isCardSelected: isCardSelected,
-      selectedCardNumber: selectedCardNumber
+      isCardSelected: false,
+      selectedCardNumber: null
     }
-    
-  } 
+    this.saveCardsInfo(cardsInfo);
+  }
+
+
   async saveCardsInfo(cardsInfo: CardsInfo): Promise<void>{
     this.cardsInfo$.next(cardsInfo);
     this.storage.set("cardsInfo", cardsInfo);
   }
-
-
-
 
 
   getDayDifference(pastDate: Date, date: Date): number{

@@ -38,15 +38,16 @@ export class CardsService {
           const newCardsArrayNo = (pastCardsArrayNo + dayDifference) % cardsInfo.periodDays; 
           this.isCardSelected = cardsInfo.isCardSelected;
           this.selectedCardNumber = cardsInfo.selectedCardNumber;
-          this.save3cards(
-            cardsInfo.firstDay, 
-            cardsInfo.periodDays,
-            newCardsArrayNo,
-            now,
-            this.isCardSelected,
-            this.selectedCardNumber
-          );
-          console.log("isCardSelected in service load", this.isCardSelected);
+          const newCardsInfo = {
+            firstDay: cardsInfo.firstDay, 
+            periodDays: cardsInfo.periodDays,
+            threeCardsNumber: [newCardsArrayNo - 1, newCardsArrayNo,  newCardsArrayNo+1],
+            timeStamp: now,
+            isCardSelected: this.isCardSelected,
+            selectedCardNumber: this.selectedCardNumber
+          };
+          this.saveCardsInfo(cardsInfo);
+      
           if(dayDifference > 1 ){
             this.isCardSelected = false;
             if(dayDifference > cardsInfo.periodDays){

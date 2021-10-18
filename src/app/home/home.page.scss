@@ -1,5 +1,6 @@
 ion-title {
   text-align: center;
+  font-family: GowunBatang-Regular;
 }
 
 ion-header {
@@ -30,24 +31,28 @@ ion-tab-bar {
 
 .title{
   margin: -15px;
+  font-family: GowunBatang-Bold;
+
   // display: flex;
   // flex-direction: column;
 }
 .headline{
   font-size: 10pt;
+  font-family: GowunDodum-Regular;
 }
 
 
 
 
-// .fortune{
-//   margin-left: 10px;
-//   //padding: 10px;
-// }
+.fortune{
+  font-family: GowunDodum-Regular;
+  //margin-left: 10px;
+  //padding: 10px;
+}
 
 .moreInfo{
   font-size: 10pt;
-  
+  font-family: GowunDodum-Regular;
 }
 
 img {

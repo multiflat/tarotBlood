@@ -24,17 +24,20 @@
     </app-card-stack>
     <div *ngIf = "this.withFortune" class="containerWithFortune"> 
       <div class="title">
-        <h2>{{ this.cardOnScreen.name }}</h2>
-        <h5>subtitle</h5>
+        <h3>{{ this.cardOnScreen.name }}</h3>
       </div>
-      <div class="fortuneWithPicture">
-        <p class="fortune">{{ this.cardOnScreen.fortune }}</p>
+      <div class="headline">
+        <p>{{ this.cardOnScreen.headline }}</p>
+      </div>
+      <!-- <div class="fortuneWithPicture"> -->
         <img [src] = "'./assets/' + this.cardOnScreen.picture" alt="this.selectedCard.name">
-      </div>
+        <p class="fortune">{{ this.cardOnScreen.fortune }}</p>
+      <!-- </div> -->
       <div class="moreInfo">
         <p>더 자세한 내용을 알고 싶으시다면...</p>
       </div>
     </div>
+    
   </span>
   <span  *ngIf="this.cardsInfo.isCardSelected" class="afterSelected">
     <div  *ngIf = "!this.withFortune"
@@ -43,16 +46,16 @@
     </div>
     <div *ngIf = "this.withFortune" class="containerWithFortune">
       <div class="title">
-        <h2>{{ this.selectedCard.name }}</h2>
-        <h5>subtitle</h5>
+        <h3>{{ this.selectedCard.name }}</h3>
       </div>
-      <div class="fortuneWithPicture">
-        <p class="fortune">{{ this.selectedCard.fortune }}</p>
+      <div class="headline">
+        <p>{{ this.selectedCard.headline }}</p>
+      </div>
         <img [src] = "'./assets/' + this.selectedCard.picture" alt="this.selectedCard.name">
-      </div>
-      <div class="moreInfo">
-        <p>더 자세한 내용을 알고 싶으시다면...</p>
-      </div>
+        <p class="fortune">{{ this.selectedCard.fortune }}</p>
+        <div class="moreInfo">
+          <p>더 자세한 내용을 알고 싶으시다면...</p>
+        </div>
     </div>
     
   </span>

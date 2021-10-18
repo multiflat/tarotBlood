@@ -78,7 +78,7 @@ export class HomePage implements OnInit {
       this.cardsInfo.threeCardsNumber[2] = this.cardsInfo.threeCardsNumber[2] + 3;//임시
       this.temporarySelect3Cards();
     }
-    console.log("refresh3cards")
+    this.titleIndex = 0;
   }
   
   

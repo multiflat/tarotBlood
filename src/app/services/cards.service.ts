@@ -114,17 +114,18 @@ export class CardsService {
     const next = (x:number) => x >= 27 ? x - 27: x+1;
     const arrayOf3cardsArray = (period:number)=> periodArrayTransform(period).map(x => [past(x), x, next(x)]); 
 
-    const repeat123 = (x: number) => x - 3 * Math.floor((x)/3); 
-    const arrayOf3cardsArrayWith123index = (period: number) => {
+    const repeat012 = (x: number) => x - 3 * Math.floor((x)/3); 
+    const arrayOf3cardsArrayWith012index = (period: number) => {
       const arrayOf3cardsArrayTransform = arrayOf3cardsArray(period).map(
             (cardsArray, i) => { 
-                    let arrayOfCardsWith123index = cardsArray.map(card => [card, repeat123(i)])  
-                    return arrayOfCardsWith123index;
+                    let arrayOfCardsWith012index = cardsArray.map(card => [card, repeat012(i)])  
+                    return arrayOfCardsWith012index;
             }    
         )  
         return arrayOf3cardsArrayTransform; 
-      }; //  
-      return arrayOf3cardsArrayWith123index(period);
+      }; 
+      console.log("arrayOf3cardsArrayWith012index:",arrayOf3cardsArrayWith012index(period));
+      return arrayOf3cardsArrayWith012index(period);
       
     }
   }

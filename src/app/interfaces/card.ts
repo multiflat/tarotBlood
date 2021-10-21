@@ -1,5 +1,6 @@
 export interface Card {
-    id: number;
+    id: string;
+    tarotNo: number;
     name: string;
     headline: string;
     fortune: string;

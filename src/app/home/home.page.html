@@ -39,7 +39,7 @@
     </div>
     
   </span>
-  <span  *ngIf="this.cardsInfo.isCardSelected" class="afterSelected">
+  <span class="afterSelected" *ngIf="this.cardsInfo.isCardSelected" >
     <div  *ngIf = "!this.withFortune"
       class ="selectedCardWithoutFortune"
       [style.backgroundImage]="'url(./assets/' + this.selectedCard.picture + ')'">

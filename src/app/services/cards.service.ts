@@ -17,49 +17,77 @@ export class CardsService {
   private loaded: boolean = false;
   private threeCards: Array<Array<number>>
   private isCardSelected: Boolean;
-  private selectedCardNumber: number;
+  private selectedCardId: string;
   private cardsInfo$: BehaviorSubject<CardsInfo> 
     = new BehaviorSubject<CardsInfo>({ 
-      threeCardsNumber: null, 
+      threeCardsId: null, 
       timeStamp: null, 
       periodDays: null,
       firstDay: null,
       isCardSelected: false,
-      selectedCardNumber: null
+      selectedCardId: null
     })
 
+  public repeatABC = (x: number) => {
+    const repeat012 = x % 3; 
+    if (repeat012 == 0){
+      return 'A';
+    } else if (repeat012 == 1) {
+      return 'B';
+    } else if (repeat012 == 2) {
+      return 'C';
+    }
+  }
+  public numToId = (num: number): string => {
+    return num.toString() + this.repeatABC(num);// 필요한가?
+  }
+  public idToNum = (id: string): number =>{
+    return parseInt(id.slice(0, id.length - 1));
+  }
+
+  public past = (x:number) => x <= 0 ? x + 27 : x-1; 
+  public next = (x:number) => x >= 27 ? x - 27: x+1;
+  
   async load(): Promise<void> {
     if(!this.loaded){
       const cardsInfo: CardsInfo = await this.storage.get("cardsInfo");
-      if(cardsInfo !== null
-      ){  const now = new Date();
+      const now = new Date();
+      let new3cardsId: string[];
+      if(cardsInfo !== null){    
           const dayDifference = this.getDayDifference(cardsInfo.timeStamp, now);
-          const pastCardsArrayNo = cardsInfo.threeCardsNumber[1];// - 1;
-          const newCardsArrayNo = (pastCardsArrayNo + dayDifference) % cardsInfo.periodDays; 
+          const midIdAmongPast3cards = cardsInfo.threeCardsId[1];
+          const midNum = this.idToNum(midIdAmongPast3cards);
+          const todayNum = (midNum + dayDifference) % cardsInfo.periodDays;  
+          
+          new3cardsId =  [  this.past(todayNum).toString() + this.repeatABC(todayNum),
+                            this.numToId(todayNum),
+                            this.next(todayNum).toString() + this.repeatABC(todayNum)
+                          ]
+                        
           this.isCardSelected = cardsInfo.isCardSelected;
-          this.selectedCardNumber = cardsInfo.selectedCardNumber;
-          const newCardsInfo = {
-            firstDay: cardsInfo.firstDay, 
-            periodDays: cardsInfo.periodDays,
-            threeCardsNumber: [newCardsArrayNo - 1, newCardsArrayNo,  newCardsArrayNo+1],
-            timeStamp: now,
-            isCardSelected: this.isCardSelected,
-            selectedCardNumber: this.selectedCardNumber
-          };
-          this.saveCardsInfo(cardsInfo);
-      
+          this.selectedCardId = cardsInfo.selectedCardId;
+          
           if(dayDifference > 1 ){
             this.isCardSelected = false;
             if(dayDifference > cardsInfo.periodDays){
               this.navCtrl.navigateRoot("periodPicker")
             } 
           } else { 
-          this.navCtrl.navigateRoot("");
+              this.navCtrl.navigateRoot("");
           }              
-        } else {
-            this.navCtrl.navigateRoot("period-picker");
-        }
-   }
+      } else {
+          this.navCtrl.navigateRoot("period-picker");
+      }
+      const newCardsInfo = {
+        firstDay: cardsInfo.firstDay, 
+        periodDays: cardsInfo.periodDays,
+        threeCardsId: new3cardsId,
+        timeStamp: now,
+        isCardSelected: this.isCardSelected,
+        selectedCardNumber: this.selectedCardId,
+      };
+      this.saveCardsInfo(cardsInfo);
+    }
     this.loaded = true;
   }
   
@@ -78,16 +106,13 @@ export class CardsService {
     const cardsArrayNo = nowFromFirst < 0 ? nowFromFirst + periodDays : nowFromFirst; // 양수로 바꿔줌.    
     
     const threeCards = this.getCardsArray(periodDays)[cardsArrayNo];
-    const threeCardsInProgress: number[] = [  threeCards[0][0], // 임시로
-                                              threeCards[1][0], // 임시로
-                                              threeCards[2][0]]// 임시로
     const cardsInfo: CardsInfo = {
-      threeCardsNumber: threeCardsInProgress,//임시로
+      threeCardsId: threeCards,//임시로
       timeStamp: now,
       periodDays: periodDays,
       firstDay: firstDay,
       isCardSelected: false,
-      selectedCardNumber: null
+      selectedCardId: null
     }
     this.saveCardsInfo(cardsInfo);
   }
@@ -105,27 +130,23 @@ export class CardsService {
     return dayDifference;
   }
 
-  getCardsArray(period: number): Array<Array<Array<number>>>{
+  getCardsArray(period: number): Array<Array<string>>{
     const emptyItemsArray = (x:number) => [...Array(x)];
     const periodDayArray = (period:number) => emptyItemsArray(period).map((_, index)=> index); 
 
     const periodArrayTransform = (period) => periodDayArray(period).map (x => Math.round((28/period) * x)); 
-    const past = (x:number) => x <= 0 ? x + 27 : x-1; 
-    const next = (x:number) => x >= 27 ? x - 27: x+1;
-    const arrayOf3cardsArray = (period:number)=> periodArrayTransform(period).map(x => [past(x), x, next(x)]); 
+    const arrayOf3cardsArray = (period:number)=> periodArrayTransform(period).map(x => [this.past(x), x, this.next(x)]); 
 
-    const repeat012 = (x: number) => x - 3 * Math.floor((x)/3); 
-    const arrayOf3cardsArrayWith012index = (period: number) => {
+    const arrayOf3cardsArrayWithABCindex = (period: number) => {
       const arrayOf3cardsArrayTransform = arrayOf3cardsArray(period).map(
             (cardsArray, i) => { 
-                    let arrayOfCardsWith012index = cardsArray.map(card => [card, repeat012(i)])  
+                    let arrayOfCardsWith012index = cardsArray.map(card => card.toString()+this.repeatABC(i))  
                     return arrayOfCardsWith012index;
             }    
         )  
         return arrayOf3cardsArrayTransform; 
       }; 
-      console.log("arrayOf3cardsArrayWith012index:",arrayOf3cardsArrayWith012index(period));
-      return arrayOf3cardsArrayWith012index(period);
+      return arrayOf3cardsArrayWithABCindex(period);
       
     }
   }

@@ -1,8 +1,8 @@
 export interface CardsInfo {
     timeStamp: Date,
-    threeCardsNumber: number[],
+    threeCardsId: string[],
     isCardSelected: Boolean,
-    selectedCardNumber: number,
+    selectedCardId: string,
     periodDays: number,
     firstDay: Date
 }

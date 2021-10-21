@@ -49,21 +49,22 @@ export class HomePage implements OnInit {
       = this.cardsService.getCardsInfo$()
         .subscribe((cardsInfo)=>{
           this.cardsInfo = cardsInfo;
-          if(this.cardsInfo.threeCardsNumber === null){
+          if(this.cardsInfo.threeCardsId === null){
             this.navCtrl.navigateRoot("period-picker");
           } else {
             if(this.cardsInfo.isCardSelected){
-              this.selectedCard = this.cardFortunes[this.cardsInfo.selectedCardNumber];
+              this.selectedCard = this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.selectedCardId);
             }
-            this.temporarySelect3Cards();
+            this.show3cards();
           }
         });
+    
   }
 
-  private temporarySelect3Cards(){//임시
-          this.cards = [  this.cardFortunes[this.cardsInfo.threeCardsNumber[0]],
-                          this.cardFortunes[this.cardsInfo.threeCardsNumber[1]], 
-                          this.cardFortunes[this.cardsInfo.threeCardsNumber[2]]
+  private show3cards(){
+          this.cards = [  this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[0]), 
+                          this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[2]),
+                          this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[1])//오늘의 카드가 제일 뒤에 덮여 제일 앞에 보이도록.
                         ];
           this.checkCardOnScreen();
           this.dummyData = [...this.cards];
@@ -73,10 +74,39 @@ export class HomePage implements OnInit {
     if(this.cardsInfo.isCardSelected === true){
       this.cardsInfo.isCardSelected = false;
     } else {
-      this.cardsInfo.threeCardsNumber[0] = this.cardsInfo.threeCardsNumber[0] + 3;//임시
-      this.cardsInfo.threeCardsNumber[1] = this.cardsInfo.threeCardsNumber[1] + 3;//임시
-      this.cardsInfo.threeCardsNumber[2] = this.cardsInfo.threeCardsNumber[2] + 3;//임시
-      this.temporarySelect3Cards();
+      console.log(this.cardsInfo.threeCardsId);
+      this.cardsInfo.threeCardsId[0] = 
+        this.cardsService.next(
+          this.cardsService.idToNum(
+            this.cardsInfo.threeCardsId[0]
+          )
+        ).toString() + this.cardsService.repeatABC(
+          this.cardsService.idToNum(
+            this.cardsInfo.threeCardsId[2]
+          )
+        );
+      this.cardsInfo.threeCardsId[1] = 
+        this.cardsService.next(
+          this.cardsService.idToNum(
+            this.cardsInfo.threeCardsId[1]
+          )
+        ).toString() + this.cardsService.repeatABC(
+          this.cardsService.idToNum(
+            this.cardsInfo.threeCardsId[2]
+          )
+        );
+      this.cardsInfo.threeCardsId[2] =
+        this.cardsService.next(
+          this.cardsService.idToNum(
+            this.cardsInfo.threeCardsId[2]
+          )
+        ).toString() + this.cardsService.repeatABC(
+          this.cardsService.idToNum(
+            this.cardsInfo.threeCardsId[2]
+          )
+        );
+      console.log(this.cardsInfo.threeCardsId);
+      this.show3cards();
     }
     this.titleIndex = 0;
   }
@@ -105,16 +135,21 @@ export class HomePage implements OnInit {
 
   selectCard(ev){
     this.selectedCard = ev;
-    this.cardsInfo.selectedCardNumber= ev.id;
+    this.cardsInfo.selectedCardId = ev.id;
     this.cardsInfo.isCardSelected = true;
-    this.cardsInfo.threeCardsNumber = [ev.id-1, ev.id, ev.id+1];
-    const newCardsInfo= {
+    this.cardsInfo.threeCardsId = 
+      [ this.cardsService.past(this.cardsService.idToNum(ev.id)).toString() + this.cardsService.repeatABC(this.cardsService.idToNum(ev.id)),
+        ev.id,
+        this.cardsService.next(this.cardsService.idToNum(ev.id)).toString() + this.cardsService.repeatABC(this.cardsService.idToNum(ev.id))
+      ];
+    
+    const newCardsInfo: CardsInfo= {
       firstDay: this.cardsInfo.firstDay,
       periodDays: this.cardsInfo.periodDays,
-      threeCardsNumber: this.cardsInfo.threeCardsNumber,
+      threeCardsId: this.cardsInfo.threeCardsId,
       timeStamp: new Date(),
       isCardSelected: this.cardsInfo.isCardSelected,
-      selectedCardNumber: this.cardsInfo.selectedCardNumber
+      selectedCardId: this.cardsInfo.selectedCardId
     }
     this.cardsService.saveCardsInfo(newCardsInfo);
   }

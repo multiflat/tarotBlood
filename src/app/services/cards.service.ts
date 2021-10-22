@@ -38,16 +38,77 @@ export class CardsService {
       return 'C';
     }
   }
-  public numToId = (num: number): string => {
-    return num.toString() + this.repeatABC(num);// 필요한가?
+  public addABC(num: number, ABC: string): string {
+    return num.toString() + ABC;
   }
-  public idToNum = (id: string): number =>{
+  public nextABC(id: string):string { // repeatABC와는 반대순서로 해야 전날이나 다음날 볼 카드와는 다른 카드가 나올것 
+    const pastABC = id.charAt(id.length-1);
+    let nextABC: string;
+    if(pastABC === 'A'){
+      nextABC = 'C'
+    } else if(pastABC === 'B'){
+      nextABC = 'A'
+    } else if(pastABC === 'C'){
+      nextABC = 'B'
+    }
+    return nextABC;
+  }  
+
+  public removeABCtoNum(id: string): number {
     return parseInt(id.slice(0, id.length - 1));
   }
-
-  public past = (x:number) => x <= 0 ? x + 27 : x-1; 
-  public next = (x:number) => x >= 27 ? x - 27: x+1;
+  // public past = (x:number) => x <= 0 ? x + 27 : x-1; 
+  //public next = (x:number) => x >= 27 ? x - 27: x+1; //25a 26a 27a
   
+  
+  public past(x: number): number {
+    if(x <=0 ){
+      while( x <= 0)
+      { x = x + 27;}
+    } else {
+      x = x -1;
+    }
+    return x;
+  }
+  public next(x: number): number {
+    if(x >= 27 ){
+      while( x >= 27)
+      { x = x - 27;}
+    } else {
+      x = x + 1;
+    }
+    return x;
+  }
+  
+  
+  public next3cardsId(threeCards: Card[], refreshIndex: number): string[]{
+    const newABC = this.nextABC(threeCards[1].id);     
+    const getNextCardId = (id: string): string => 
+      this.addABC(this.next(this.removeABCtoNum(id)+refreshIndex), newABC);
+    const next3CardsId = [ getNextCardId(threeCards[0].id),
+                           getNextCardId(threeCards[1].id),
+                           getNextCardId(threeCards[2].id)
+                        ]
+    return next3CardsId;
+  }
+  public past3cardsId(threeCards: Card[], refreshIndex: number): string[]{
+    const newABC = this.nextABC(threeCards[1].id);   
+    const getPastCardId = (id: string): string => 
+      this.addABC(this.past(this.removeABCtoNum(id)-refreshIndex), newABC);
+    const past3CardsId = [ getPastCardId(threeCards[0].id),
+                           getPastCardId(threeCards[1].id),
+                           getPastCardId(threeCards[2].id)
+                        ]
+    return past3CardsId;
+  }
+  public threeCardsIdAfterSelectCard(selectedCard: Card): string[]{
+    const newABC = this.repeatABC(this.removeABCtoNum(selectedCard.id)); 
+    return [ this.addABC(this.past(this.removeABCtoNum(selectedCard.id)), newABC),
+      selectedCard.id,
+      this.addABC(this.next(this.removeABCtoNum(selectedCard.id)), newABC)
+    ];
+  }
+
   async load(): Promise<void> {
     if(!this.loaded){
       const cardsInfo: CardsInfo = await this.storage.get("cardsInfo");
@@ -56,12 +117,12 @@ export class CardsService {
       if(cardsInfo !== null){    
           const dayDifference = this.getDayDifference(cardsInfo.timeStamp, now);
           const midIdAmongPast3cards = cardsInfo.threeCardsId[1];
-          const midNum = this.idToNum(midIdAmongPast3cards);
+          const midNum = this.removeABCtoNum(midIdAmongPast3cards);
           const todayNum = (midNum + dayDifference) % cardsInfo.periodDays;  
           
-          new3cardsId =  [  this.past(todayNum).toString() + this.repeatABC(todayNum),
-                            this.numToId(todayNum),
-                            this.next(todayNum).toString() + this.repeatABC(todayNum)
+          new3cardsId =  [  this.addABC(this.past(todayNum), this.repeatABC(todayNum)),
+                            this.addABC(todayNum, this.repeatABC(todayNum)),
+                            this.addABC(this.next(todayNum), this.repeatABC(todayNum))
                           ]
                         
           this.isCardSelected = cardsInfo.isCardSelected;

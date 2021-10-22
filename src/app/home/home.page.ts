@@ -26,9 +26,9 @@ export class HomePage implements OnInit {
   //private selectedCardNumber: number;
   public selectedCard: Card;
   public withFortune = false;
-  public titles: string[] = ['첫번째 카드', '두번째 카드', '세번째 카드'];
-  private titleIndex: number = 0;
-
+  public titles = ['첫번째 카드', '두번째 카드', '세번째 카드'];
+  private titleIndex = 0;
+  private refreshIndex = 0;
   constructor(
     private cardsService: CardsService,
     private navCtrl: NavController,
@@ -61,7 +61,7 @@ export class HomePage implements OnInit {
     
   }
 
-  private show3cards(){
+  private show3cards(){ // this.cardsInfo의 정보를 this.cards로 보내 화면에 띄움
           this.cards = [  this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[0]), 
                           this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[2]),
                           this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[1])//오늘의 카드가 제일 뒤에 덮여 제일 앞에 보이도록.
@@ -74,39 +74,16 @@ export class HomePage implements OnInit {
     if(this.cardsInfo.isCardSelected === true){
       this.cardsInfo.isCardSelected = false;
     } else {
-      console.log(this.cardsInfo.threeCardsId);
-      this.cardsInfo.threeCardsId[0] = 
-        this.cardsService.next(
-          this.cardsService.idToNum(
-            this.cardsInfo.threeCardsId[0]
-          )
-        ).toString() + this.cardsService.repeatABC(
-          this.cardsService.idToNum(
-            this.cardsInfo.threeCardsId[2]
-          )
-        );
-      this.cardsInfo.threeCardsId[1] = 
-        this.cardsService.next(
-          this.cardsService.idToNum(
-            this.cardsInfo.threeCardsId[1]
-          )
-        ).toString() + this.cardsService.repeatABC(
-          this.cardsService.idToNum(
-            this.cardsInfo.threeCardsId[2]
-          )
-        );
-      this.cardsInfo.threeCardsId[2] =
-        this.cardsService.next(
-          this.cardsService.idToNum(
-            this.cardsInfo.threeCardsId[2]
-          )
-        ).toString() + this.cardsService.repeatABC(
-          this.cardsService.idToNum(
-            this.cardsInfo.threeCardsId[2]
-          )
-        );
-      console.log(this.cardsInfo.threeCardsId);
+      let new3cardsId: string[];
+      if(this.refreshIndex % 2 === 0){
+        new3cardsId = this.cardsService.next3cardsId(this.cards, this.refreshIndex);
+      } else {
+        new3cardsId = this.cardsService.past3cardsId(this.cards, this.refreshIndex);
+      }
+      this.cardsInfo.threeCardsId = new3cardsId;
       this.show3cards();
+      console.log(this.cards[0].id, this.cards[1].id, this.cards[2].id);
+      this.refreshIndex++;
     }
     this.titleIndex = 0;
   }
@@ -136,13 +113,9 @@ export class HomePage implements OnInit {
   selectCard(ev){
     this.selectedCard = ev;
     this.cardsInfo.selectedCardId = ev.id;
+    console.log("ev:",ev);
     this.cardsInfo.isCardSelected = true;
-    this.cardsInfo.threeCardsId = 
-      [ this.cardsService.past(this.cardsService.idToNum(ev.id)).toString() + this.cardsService.repeatABC(this.cardsService.idToNum(ev.id)),
-        ev.id,
-        this.cardsService.next(this.cardsService.idToNum(ev.id)).toString() + this.cardsService.repeatABC(this.cardsService.idToNum(ev.id))
-      ];
-    
+    this.cardsInfo.threeCardsId = this.cardsService.threeCardsIdAfterSelectCard(this.selectedCard);
     const newCardsInfo: CardsInfo= {
       firstDay: this.cardsInfo.firstDay,
       periodDays: this.cardsInfo.periodDays,

@@ -61,7 +61,7 @@ export class HomePage implements OnInit {
     
   }
 
-  private show3cards(){ // this.cardsInfo의 정보를 this.cards로 보내 화면에 띄움
+  private show3cards(){ // this.cardsInfo의 정보를 가지고 fortune을 찾아 this.cards로 보내 화면에 띄움
           this.cards = [  this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[0]), 
                           this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[2]),
                           this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[1])//오늘의 카드가 제일 뒤에 덮여 제일 앞에 보이도록.

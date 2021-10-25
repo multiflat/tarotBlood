@@ -1,6 +1,5 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-      <!-- <ion-title size="small">타로 블러드</ion-title>  -->
       <ion-title size="small"> 타로 블러드 : 
         <span *ngIf="!this.cardsInfo.isCardSelected">{{ this.titles[titleIndex] }}</span>
         <span *ngIf="this.cardsInfo.isCardSelected">오늘의 카드</span>
@@ -29,13 +28,11 @@
       <div class="headline">
         <p>{{ this.cardOnScreen.headline }}</p>
       </div>
-      <!-- <div class="fortuneWithPicture"> -->
         <img [src] = "'./assets/' + this.cardOnScreen.picture" alt="this.selectedCard.name">
         <p class="fortune">{{ this.cardOnScreen.fortune }}</p>
-      <!-- </div> -->
-      <div class="moreInfo">
-        <p>더 자세한 내용을 알고 싶으시다면...</p>
-      </div>
+        <ion-button class="moreInfo" size="small" color="light" routerLink="/info">
+          더 자세한 내용을 알고 싶으시다면...
+      </ion-button>
     </div>
     
   </span>
@@ -53,19 +50,19 @@
       </div>
         <img [src] = "'./assets/' + this.selectedCard.picture" alt="this.selectedCard.name">
         <p class="fortune">{{ this.selectedCard.fortune }}</p>
-        <div class="moreInfo">
-          <p>더 자세한 내용을 알고 싶으시다면...</p>
-        </div>
+        <ion-button class="moreInfo" size="small" color="light" routerLink="/info">
+          더 자세한 내용을 알고 싶으시다면...
+        </ion-button>
     </div>
     
   </span>
 </ion-content>
 <ion-footer>
   <ion-tab-bar>
-    <ion-tab-button>
+    <ion-tab-button routerLink="/info">
       <ion-icon name="information-circle-outline"></ion-icon>
     </ion-tab-button>  
-     <ion-tab-button (click)="refresh3cards()"> 
+     <ion-tab-button (click)="refreshCards()"> 
       <ion-icon name="repeat-outline"></ion-icon>
     </ion-tab-button>
     <ion-tab-button routerLink="/period-picker">

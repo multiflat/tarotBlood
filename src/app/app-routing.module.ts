@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'period-picker',
     loadChildren: () => import('./period-picker/period-picker.module').then( m => m.PeriodPickerPageModule)
   },
+  {
+    path: 'info',
+    loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
+  },
 ];
 
 @NgModule({

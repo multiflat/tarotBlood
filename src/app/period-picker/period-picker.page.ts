@@ -73,12 +73,14 @@ export class PeriodPickerPage implements OnInit, OnDestroy {
   private getColumnOptions(){
     const options = [];
     const defaultPeriod = [
+      '10일', '11일', '12일', '13일',
       '14일', '15일', '16일', '17일', '18일',
       '19일', '20일', '21일', '22일', '23일', 
       '24일', '25일', '26일', '27일', '28일',
       '29일', '30일', '31일', '32일', '33일',
       '34일', '35일', '36일', '37일', '38일', 
-      '39일', '40일', '41일', '42일', '43일' ]
+      '39일', '40일', '41일', '42일', '43일',
+      '44일', '45일', '46일', '47일', '48일' ]
     defaultPeriod.forEach(x => {
       options.push({text:x, value:x});
     });

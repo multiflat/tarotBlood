@@ -81,23 +81,23 @@ export class CardsService {
   }
   
   
-  public next3cardsId(threeCards: Card[], refreshIndex: number): string[]{
-    const newABC = this.nextABC(threeCards[1].id);     
+  public next3cardsId(threeCardsId: string[], refreshIndex: number): string[]{
+    const newABC = this.nextABC(threeCardsId[1]);     
     const getNextCardId = (id: string): string => 
       this.addABC(this.next(this.removeABCtoNum(id)+refreshIndex), newABC);
-    const next3CardsId = [ getNextCardId(threeCards[0].id),
-                           getNextCardId(threeCards[1].id),
-                           getNextCardId(threeCards[2].id)
+    const next3CardsId = [ getNextCardId(threeCardsId[0]),
+                           getNextCardId(threeCardsId[1]),
+                           getNextCardId(threeCardsId[2])
                         ]
     return next3CardsId;
   }
-  public past3cardsId(threeCards: Card[], refreshIndex: number): string[]{
-    const newABC = this.nextABC(threeCards[1].id);   
+  public past3cardsId(threeCardsId: string[], refreshIndex: number): string[]{
+    const newABC = this.nextABC(threeCardsId[1]);   
     const getPastCardId = (id: string): string => 
       this.addABC(this.past(this.removeABCtoNum(id)-refreshIndex), newABC);
-    const past3CardsId = [ getPastCardId(threeCards[0].id),
-                           getPastCardId(threeCards[1].id),
-                           getPastCardId(threeCards[2].id)
+    const past3CardsId = [ getPastCardId(threeCardsId[0]),
+                           getPastCardId(threeCardsId[1]),
+                           getPastCardId(threeCardsId[2])
                         ]
     return past3CardsId;
   }

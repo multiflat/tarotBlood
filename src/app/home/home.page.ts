@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter  } from "@angular/core";
-import { NavController } from "@ionic/angular";
+import { AlertController, NavController } from "@ionic/angular";
 import { Card } from "../interfaces/card";
 import { CardsService } from "../services/cards.service";
 import { DayAlarmService } from "../services/day-alarm.service"
@@ -28,9 +28,10 @@ export class HomePage implements OnInit {
   public withFortune = false;
   public titles = ['첫번째 카드', '두번째 카드', '세번째 카드'];
   private titleIndex = 0;
-  private refreshIndex = 0;
+  private refresh3cardsIndex = 0;
   constructor(
     private cardsService: CardsService,
+    private alertCtrl: AlertController,
     private navCtrl: NavController,
     private dayAlarm: DayAlarmService
   ) {}
@@ -70,30 +71,66 @@ export class HomePage implements OnInit {
           this.dummyData = [...this.cards];
   }
 
-  refresh3cards(){
-    if(this.cardsInfo.isCardSelected === true){
-      this.cardsInfo.isCardSelected = false;
-    } else {
+  async refreshCards(){
+    const alertWith3cards = await this.alertCtrl.create({
+      header: "새로운 3장의 카드를 뽑으시겠습니까?",
+      buttons: [{ text: "네",
+                  handler: ()=> {
+                    alertWith3cards.dismiss().then(()=>
+                    refresh3cards());
+                  }
+                },
+                { text: "아니오"
+                }
+              ]
+    });
+    const alertWith1card = await this.alertCtrl.create({
+      header: "오늘의 카드를 다시 뽑으시겠습니까?",
+      buttons: [{ text: "네",
+                  handler: ()=> {
+                    alertWith3cards.dismiss().then(()=>
+                      { this.cardsInfo.isCardSelected = false;
+                        this.withFortune = false;
+                      }
+                    )
+                  }
+                },
+                { text: "아니오"
+                }
+              ]
+    });
+    const refresh3cards= () => {
+      if(this.withFortune){ this.withFortune = false; }
       let new3cardsId: string[];
-      if(this.refreshIndex % 2 === 0){
-        new3cardsId = this.cardsService.next3cardsId(this.cards, this.refreshIndex);
+      if(this.refresh3cardsIndex % 2 === 0){
+        new3cardsId = this.cardsService.next3cardsId(this.cardsInfo.threeCardsId, this.refresh3cardsIndex);
       } else {
-        new3cardsId = this.cardsService.past3cardsId(this.cards, this.refreshIndex);
+        new3cardsId = this.cardsService.past3cardsId(this.cardsInfo.threeCardsId, this.refresh3cardsIndex);
       }
       this.cardsInfo.threeCardsId = new3cardsId;
       this.show3cards();
-      console.log(this.cards[0].id, this.cards[1].id, this.cards[2].id);
-      this.refreshIndex++;
+      this.refresh3cardsIndex++;
+      this.titleIndex = 0;
     }
-    this.titleIndex = 0;
+    if(this.cardsInfo.isCardSelected === true){
+      alertWith1card.present()
+    } else {
+      alertWith3cards.present();
+    }
   }
-  
   
   checkCardOnScreen(){
     this.cardOnScreen = this.cards[this.cards.length - 1];
   }
 
-  loadMore(complete) {
+  async loadMore(complete) {
+    const alert = await this.alertCtrl.create({
+      header: "오늘의 카드를 뽑아주세요.",
+      message: "가장 마음에 와닿는 한 장의 카드를 고르세요.",
+      buttons: [{ text: "Ok"}]
+    })
+    alert.present();
+
     setTimeout(() => {
       let cardToAdd = [...this.dummyData];
       this.cards.push(...cardToAdd);

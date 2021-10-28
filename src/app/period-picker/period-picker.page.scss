@@ -1,0 +1,67 @@
+$purple: #260124;
+//$cream: #e7dec6;
+
+
+ion-header{
+  text-align: center;
+  background: #260124;
+
+  ion-toolbar{
+    --background: #260124fe;
+    ion-title {
+      .title-text{
+        color: white;
+        font-family: GowunBatang-Bold;
+        font-size: 15pt;
+      }    
+    }
+  }  
+}
+
+ion-content{
+  --background: #e7dec6;
+  ion-list{
+    background: #e7dec6;;
+    ion-item{
+      --background: #e7dec6;;
+      color: #260124;
+      font-size: 11pt;
+      
+      ion-label{
+        .item-text{
+          font-family: GowunBatang-Bold;
+        }
+      }
+      ion-button{
+        --background: white;
+        --background-hover: #260124;
+        .button-text{
+          font-size: 10pt;
+          color: #260124;
+          font-family: GowunBatang-Bold;
+        }
+      }
+      .guide{
+        font-size: 12pt;
+        color: #260124;
+        font-family: GowunBatang-Regular;
+      }
+    }    
+  }  
+}
+
+ion-footer{
+  ion-button {
+  --background: #260124;
+  --background-hover: #e7dec6;
+  }
+  .footer-text {
+    font-family: GowunBatang-Bold;
+    font-size: 14pt;
+    color: white;
+  }
+
+}
+
+
+

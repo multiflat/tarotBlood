@@ -1,7 +1,7 @@
-<ion-header translucent>
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      주기 기억하기
+      <span class="title-text">주기 기억하기</span>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,13 @@
 <ion-content>  
   <ion-list> 
     <ion-item>
-      <ion-label color="primary">최근 1일차, 혹은 예상 1일차</ion-label>
-        <ion-button size="small" slot="end"
-        (click)="firstDay.open();">날짜 선택</ion-button>                
+      <ion-label>
+        <span class="item-text">최근 1일차, 혹은 예상 1일차</span>
+      </ion-label>
+      <ion-button size="small" slot="end"
+        (click)="firstDay.open();">
+        <span class="button-text">날짜 선택</span>
+      </ion-button>                
     </ion-item>
     <ion-item>
       <ion-datetime [min]="minDate()" [max]="maxDate()" displayFormat="YYYY-MM-DD" #firstDay 
@@ -19,30 +23,30 @@
       (ionChange)= "getFirstDay()"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label color="primary">당신의 주기는 며칠인가요?</ion-label>
+      <ion-label><span class="item-text">당신의 주기는 며칠인가요?</span></ion-label>
       <ion-button size="small" slot="end"
         (click)="getPeriodDays();" >
-        주기 선택
+        <span class="button-text">주기 선택</span>
       </ion-button>
     </ion-item>
     <ion-item>
       {{ periodDaysOnScreen }}
     </ion-item>
     <ion-item>
-      <ion-label color="primary">기억이 정확히 나지 않으세요?</ion-label>
+      <ion-label><span class="item-text">기억이 정확히 나지 않으세요?</span></ion-label>
       <ion-button size="small" slot="end"
         (click)="showGuide()">
-      네
+        <span class="button-text">네</span>
       </ion-button>
     </ion-item>
     <ion-item>
-      {{ guide }}
+      <span class="guide">{{ guide }}</span>
     </ion-item>
   </ion-list> 
 </ion-content>
 <ion-footer>
   <ion-button (click)="goHomePage()" expand="full">
     <ion-icon name="chevron-forward-outline" ></ion-icon>
-    카드 고르기
+    <span class="footer-text">카드 고르기</span>
   </ion-button>
 </ion-footer>

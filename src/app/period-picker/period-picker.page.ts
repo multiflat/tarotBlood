@@ -100,8 +100,9 @@ export class PeriodPickerPage implements OnInit, OnDestroy {
   async periodInputCheck(): Promise<void>{  
     const alert = await this.alertCtrl.create({
         header: "주기를 입력해주세요",
+        cssClass: "alert",//variabel.scss
         message: "타로 블러드는 당신의 주기에 맞는 카드를 찾아드립니다.",
-        buttons: [{ text: "Ok"}]
+        buttons: [{ text: "OK"}]
       })
       alert.present();
   }

@@ -74,19 +74,24 @@ export class HomePage implements OnInit {
   async refreshCards(){
     const alertWith3cards = await this.alertCtrl.create({
       header: "새로운 3장의 카드를 뽑으시겠습니까?",
+      cssClass: "alert",
       buttons: [{ text: "네",
+                  cssClass: "alert",
                   handler: ()=> {
                     alertWith3cards.dismiss().then(()=>
                     refresh3cards());
                   }
                 },
-                { text: "아니오"
+                { text: "아니오",
+                  cssClass: "alert"
                 }
               ]
     });
     const alertWith1card = await this.alertCtrl.create({
       header: "오늘의 카드를 다시 뽑으시겠습니까?",
+      cssClass: "alert",
       buttons: [{ text: "네",
+                  cssClass: "alert",
                   handler: ()=> {
                     alertWith3cards.dismiss().then(()=>
                       { this.cardsInfo.isCardSelected = false;
@@ -95,7 +100,8 @@ export class HomePage implements OnInit {
                     )
                   }
                 },
-                { text: "아니오"
+                { text: "아니오",
+                  cssClass: "alert",
                 }
               ]
     });
@@ -126,8 +132,9 @@ export class HomePage implements OnInit {
   async loadMore(complete) {
     const alert = await this.alertCtrl.create({
       header: "오늘의 카드를 뽑아주세요.",
+      cssClass: "alert",
       message: "가장 마음에 와닿는 한 장의 카드를 고르세요.",
-      buttons: [{ text: "Ok"}]
+      buttons: [{ text: "OK"}]
     })
     alert.present();
 

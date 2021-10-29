@@ -10,7 +10,7 @@ ion-header {
 
       ion-button {
         --background: #e7dec6;
-        --background-hover: white;
+        //--background-hover: #a00498;
       
         ion-title {
           font-family: GowunBatang-Bold;
@@ -19,6 +19,7 @@ ion-header {
           padding-left: 45px;
           color: #260124;
           background: #e7dec6;
+          //--background-hover: black;
           #header-icon{
             font-size: 12pt;
           }
@@ -74,7 +75,7 @@ ion-content {
       font-family: GowunBatang-Regular;
       color: #e7dec6;
       --background: #260124;
-      --background-hover: #f17bec;
+      --background-hover: #a00498;
     }
   }
   .selectedCardWithoutFortune {
@@ -91,7 +92,7 @@ ion-footer {
     border: none;
     --background: #e7dec6;
     ion-tab-button{
-      --color-selected: #f17bec;
+      --color-selected:#a00498;
     }
   }
 

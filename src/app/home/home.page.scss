@@ -1,75 +1,118 @@
-ion-title {
-  text-align: center;
-  font-family: GowunBatang-Regular;
-}
-
 ion-header {
-  padding: 10px 10px 0px 10px;
-}
+  padding: 10px 10px 0px 10px;  
+  background: #e7dec6;
 
-ion-tab-bar {
-  border: none;
-}
+  ion-toolbar {
+    --background: #e7dec6;
 
-.containerWithFortune {
-  //background-color: #fbfbfb;
-  //background-size: cover;
-  //height: 100%;
-  //border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  // justify-content: flex-start;//설정할 경우 .mordInfo와 충돌 왜?
-  align-items: center;
-  // align-items: flex-start;
-}
+    ion-buttons{
+      --background: #e7dec6;
 
-.fortuneWithPicture{
-  display: flex;
-  flex-direction: column;  
-}
-
-.title{
-  margin: -15px;
-  font-family: GowunBatang-Bold;
-
-  // display: flex;
-  // flex-direction: column;
-}
-.headline{
-  font-size: 10pt;
-  font-family: GowunDodum-Regular;
+      ion-button {
+        --background: #e7dec6;
+        --background-hover: white;
+      
+        ion-title {
+          font-family: GowunBatang-Bold;
+          font-size: 12pt;
+          padding-top: 11pt;
+          padding-left: 45px;
+          color: #260124;
+          background: #e7dec6;
+          #header-icon{
+            font-size: 12pt;
+          }
+        }
+      }
+    }
+  }
 }
 
 
 
-
-.fortune{
-  font-family: GowunDodum-Regular;
-  //margin-left: 10px;
-  //padding: 10px;
-}
-
-.moreInfo{
-  font-size: 10pt;
-  font-family: GowunDodum-Regular;
-}
-
-img {
-   margin: 10px;
-   width: 50%;
-   height: 50%;
- }
-
- .selectedCardWithoutFortune {
-  background-color: #fbfbfb;
+ion-content {
+  //--background: linear-gradient(#260124, #070015);
+  --background: #e7dec6;
   background-size: cover;
   height: 100%;
   border-radius: 10px;
-  // display: flex;
-  // flex-direction: row;
-  // align-items: flex-end;
+  
+  .containerWithFortune {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    color: #e7dec6;
+
+    .title{
+      margin: -15px;
+      font-family: GowunBatang-Bold;
+      color:  #260124;
+      // display: flex;
+      // flex-direction: column;
+    }
+    .headline{
+      font-size: 10pt;
+      font-family: GowunDodum-Regular;
+      color:  #150114;
+    }
+    img {
+      margin: 10px;
+      width: 50%;
+      height: 50%;
+    }
+    .fortune{
+      font-family: GowunDodum-Regular;
+      font-size: 11pt;
+      color:  #150114;
+      //margin-left: 10px;
+      //padding: 10px;
+    }
+  
+    .moreInfo{
+      font-size: 9pt;
+      font-family: GowunBatang-Regular;
+      color: #e7dec6;
+      --background: #260124;
+      --background-hover: #f17bec;
+    }
+  }
+  .selectedCardWithoutFortune {
+    background-color: #e7dec6;
+    background-size: cover;
+    height: 100%;
+    border-radius: 10px;
+  }  
+  
 }
+
+ion-footer {
+  ion-tab-bar {
+    border: none;
+    --background: #e7dec6;
+    ion-tab-button{
+      --color-selected: #f17bec;
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // .controls {
 //   width: 100%;

@@ -22,8 +22,6 @@ export class HomePage implements OnInit {
   private cardsInfoSubscription: Subscription;
   private daySubscription: Subscription;
   
-  //public isCardSelected: Boolean;
-  //private selectedCardNumber: number;
   public selectedCard: Card;
   public withFortune = false;
   public titles = ['첫번째 카드', '두번째 카드', '세번째 카드'];
@@ -58,8 +56,9 @@ export class HomePage implements OnInit {
             }
             this.show3cards();
           }
+          this.titleIndex = 0;
         });
-    
+        
   }
 
   private show3cards(){ // this.cardsInfo의 정보를 가지고 fortune을 찾아 this.cards로 보내 화면에 띄움
@@ -154,10 +153,9 @@ export class HomePage implements OnInit {
   }
 
 
-  selectCard(ev){
+ async selectCard(ev){
     this.selectedCard = ev;
     this.cardsInfo.selectedCardId = ev.id;
-    console.log("ev:",ev);
     this.cardsInfo.isCardSelected = true;
     this.cardsInfo.threeCardsId = this.cardsService.threeCardsIdAfterSelectCard(this.selectedCard);
     const newCardsInfo: CardsInfo= {
@@ -169,6 +167,13 @@ export class HomePage implements OnInit {
       selectedCardId: this.cardsInfo.selectedCardId
     }
     this.cardsService.saveCardsInfo(newCardsInfo);
+    const alert = await this.alertCtrl.create({
+      header: "카드를 고르셨습니다.",
+      cssClass: "alert",
+      message: "오늘 하루 당신에게 축복이 가득하기를!!",
+      buttons: [{ text: "OK"}]
+    })
+    alert.present();
   }
 
   showOrHideFortune(){

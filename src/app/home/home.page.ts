@@ -62,8 +62,8 @@ export class HomePage implements OnInit {
   }
 
   private show3cards(){ // this.cardsInfo의 정보를 가지고 fortune을 찾아 this.cards로 보내 화면에 띄움
-          this.cards = [  this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[0]), 
-                          this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[2]),
+          this.cards = [  this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[0]),//전날 카드가 세번째로 보이게 
+                          this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[2]),//다음 날 카드가 두번째로 보이게
                           this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[1])//오늘의 카드가 제일 뒤에 덮여 제일 앞에 보이도록.
                         ];
           this.checkCardOnScreen();
@@ -92,7 +92,7 @@ export class HomePage implements OnInit {
       buttons: [{ text: "네",
                   cssClass: "alert",
                   handler: ()=> {
-                    alertWith3cards.dismiss().then(()=>
+                    alertWith1card.dismiss().then(()=>
                       { this.cardsInfo.isCardSelected = false;
                         this.withFortune = false;
                       }
@@ -113,6 +113,7 @@ export class HomePage implements OnInit {
         new3cardsId = this.cardsService.past3cardsId(this.cardsInfo.threeCardsId, this.refresh3cardsIndex);
       }
       this.cardsInfo.threeCardsId = new3cardsId;
+      //console.log("newID:", this.cardsInfo.threeCardsId, "refreshIndex:", this.refresh3cardsIndex)
       this.show3cards();
       this.refresh3cardsIndex++;
       this.titleIndex = 0;

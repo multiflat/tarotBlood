@@ -5,7 +5,7 @@
   left: 0;
   width: 100%;
   border-radius: 10px;
-  box-shadow: 4px -4px 0px 0px #382e2e;
+  box-shadow: 2px 2px 2px 2px #382e2e;
   overflow: hidden;
   will-change: transform;
 
@@ -29,7 +29,7 @@
       ion-button {
         --color: #260124;
         --background: #260124;
-        --background-hover: #faf8fa;
+        --background-hover: #430240;
         ion-icon {
           color: #e7dec6;
           background-color: transparent;

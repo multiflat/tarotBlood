@@ -1,16 +1,16 @@
-$purple: #260124;
-//$cream: #e7dec6;
+//$purple: #260124;
+//$cream: #eaf6fd;//#e7dec6;
 
 
 ion-header{
   text-align: center;
-  background: #260124;
+  background: #260124;//#260124;
 
   ion-toolbar{
-    --background: #260124fe;
+    --background: #260124;//#260124fe;
     ion-title {
       .title-text{
-        color: white;
+        color: #e7dec6;//white;
         font-family: GowunBatang-Bold;
         font-size: 15pt;
       }    
@@ -19,12 +19,31 @@ ion-header{
 }
 
 ion-content{
-  --background: #e7dec6;
+  --background: 
+  radial-gradient(
+      circle at 50% 0,
+      rgba(242, 77, 184, 0.2),
+      rgba(242, 77, 184, 0)
+      70.71%
+    ),
+    radial-gradient(
+      circle at 6.7% 75%,
+      rgba(108, 108, 249, 0.4),
+      rgba(108, 108, 249, 0) 
+      70.71%
+    ),
+    radial-gradient(
+      circle at 99% 97%,
+      rgba(234, 255, 0, 0.2),
+      rgba(0,255,0, 0)
+    ) 
+    beige;
+
   ion-list{
-    background: #e7dec6;;
+    background: transparent;//#eaf6fd;//#e7dec6;
     ion-item{
-      --background: #e7dec6;;
-      color: #260124;
+      --background: transparent;//#eaf6fd;//#e7dec6;
+      color: #0d011a;//#260124;
       font-size: 11pt;
       
       ion-label{
@@ -34,16 +53,16 @@ ion-content{
       }
       ion-button{
         --background: white;
-        --background-hover: #a00498;
+        --background-hover: #df4fe1;
         .button-text{
           font-size: 10pt;
-          color: #260124;
+          color: #260124;//#c5a3cb;//#260124;
           font-family: GowunBatang-Bold;
         }
       }
       .guide{
         font-size: 12pt;
-        color: #150114;
+        color: #0e010e;
         font-family: GowunBatang-Regular;
       }
     }    
@@ -52,13 +71,17 @@ ion-content{
 
 ion-footer{
   ion-button {
-    --background: #260124;
-    --background-hover: #a00498;
+    --background: #260124;//#260124;
+    --background-hover: #430240;
+    ion-icon{
+      color: #e7dec6;
+    }
   }
+
   .footer-text {
     font-family: GowunBatang-Bold;
     font-size: 14pt;
-    color: white;
+    color: #e7dec6;//white;
   }
 
 }

@@ -54,6 +54,13 @@ export class CardComponent implements AfterViewInit, OnDestroy {
     this.gesture.destroy();
   }
 
+  async showNextCard(){
+    this.gesture.enable(false);
+    await this.swipeLeftAnimation.play();
+    this.gesture.enable(true);
+    this.alreadyWatched();
+  }
+
   init() {
     if (this.swipeRightAnimation !== null && this.swipeLeftAnimation !== null) {
       this.swipeLeftAnimation.destroy();

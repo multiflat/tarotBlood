@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter  } from "@angular/core";
+import { Component, OnInit, EventEmitter, ViewChildren, QueryList, AfterViewInit  } from "@angular/core";
 import { AlertController, NavController } from "@ionic/angular";
 import { Card } from "../interfaces/card";
 import { CardsService } from "../services/cards.service";
@@ -6,6 +6,7 @@ import { DayAlarmService } from "../services/day-alarm.service"
 import { CardsInfo } from '../interfaces/cardsInfo';
 import { cardFortunes } from "./data/cardFortunes";
 import { Subscription } from "rxjs";
+import { CardComponent } from "./component/card/card.component";
 
 @Component({
   selector: "app-home",
@@ -13,9 +14,11 @@ import { Subscription } from "rxjs";
   styleUrls: ["home.page.scss"],
 })
 export class HomePage implements OnInit {
+  @ViewChildren(CardComponent) cardCmpList: QueryList<CardComponent>;
+
   public cards: Card[] = [];
   public cardOnScreen: Card;
-  private cardsInfo: CardsInfo;
+  public cardsInfo: CardsInfo;
   private dummyData: Card[] = [];
   private cardFortunes: Card[] = cardFortunes;
 
@@ -25,7 +28,7 @@ export class HomePage implements OnInit {
   public selectedCard: Card;
   public withFortune = false;
   public titles = ['첫번째 카드', '두번째 카드', '세번째 카드'];
-  private titleIndex = 0;
+  public titleIndex = 0;
   private refresh3cardsIndex = 0;
   constructor(
     private cardsService: CardsService,
@@ -33,17 +36,8 @@ export class HomePage implements OnInit {
     private navCtrl: NavController,
     private dayAlarm: DayAlarmService
   ) {}
-
+  
   ngOnInit() {
-    this.daySubscription 
-        = this.dayAlarm.day
-          .subscribe((today: Date) => {
-            console.log("now and after 24h...");
-            this.navCtrl.navigateRoot("home");
-            this.cardsInfo.isCardSelected = false;
-          }
-        );
-    
     this.cardsInfoSubscription
       = this.cardsService.getCardsInfo$()
         .subscribe((cardsInfo)=>{
@@ -59,8 +53,20 @@ export class HomePage implements OnInit {
           this.titleIndex = 0;
         });
         
+        this.daySubscription 
+        = this.dayAlarm.day
+          .subscribe((today: Date) => {
+            console.log("now and after 24h...");
+            //this.navCtrl.navigateRoot("home");
+            this.cardsInfo.isCardSelected = false;
+          }
+        );
   }
 
+  public showNextCard(){
+    this.cardCmpList.last.showNextCard();
+  }
+  
   private show3cards(){ // this.cardsInfo의 정보를 가지고 fortune을 찾아 this.cards로 보내 화면에 띄움
           this.cards = [  this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[0]),//전날 카드가 세번째로 보이게 
                           this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.threeCardsId[2]),//다음 날 카드가 두번째로 보이게

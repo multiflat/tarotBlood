@@ -135,19 +135,21 @@ export class CardsService {
             } 
           } else { 
               this.navCtrl.navigateRoot("");
-          }              
+          }    
+          const newCardsInfo = {
+            firstDay: cardsInfo.firstDay, 
+            periodDays: cardsInfo.periodDays,
+            threeCardsId: new3cardsId,
+            timeStamp: now,
+            isCardSelected: this.isCardSelected,
+            selectedCardNumber: this.selectedCardId,
+          };
+          this.saveCardsInfo(cardsInfo);
+          
       } else {
           this.navCtrl.navigateRoot("period-picker");
       }
-      const newCardsInfo = {
-        firstDay: cardsInfo.firstDay, 
-        periodDays: cardsInfo.periodDays,
-        threeCardsId: new3cardsId,
-        timeStamp: now,
-        isCardSelected: this.isCardSelected,
-        selectedCardNumber: this.selectedCardId,
-      };
-      this.saveCardsInfo(cardsInfo);
+      
     }
     this.loaded = true;
   }

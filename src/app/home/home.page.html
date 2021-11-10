@@ -1,20 +1,25 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-buttons>
+    <ion-title size="small"> 
+      <span>타로 블러드 :  </span> 
+      <span *ngIf="!this.cardsInfo.isCardSelected">{{ this.titles[titleIndex] }}</span>
+      <span *ngIf="this.cardsInfo.isCardSelected">오늘의 카드</span>
+    </ion-title> 
+    <ion-buttons slot="start">
       <ion-button (click)="showOrHideFortune()">
-        <ion-title size="small"> 
-          <span>타로 블러드 : </span> 
-          <span *ngIf="!this.cardsInfo.isCardSelected">{{ this.titles[titleIndex] }}</span>
-          <span *ngIf="this.cardsInfo.isCardSelected">오늘의 카드</span>
-          <span id="header-icon">
-            <span *ngIf="!this.withFortune">
-              <ion-icon  name="help-circle-outline"></ion-icon>
-            </span>
-            <span *ngIf="this.withFortune">
-              <ion-icon  name="checkmark-circle-outline"></ion-icon>
-            </span>
+        <span id="header-icon">
+          <span  *ngIf="!this.withFortune">
+            <ion-icon name="help-circle-outline"></ion-icon>
           </span>
-        </ion-title>
+          <span  *ngIf="this.withFortune">
+            <ion-icon  name="checkmark-circle-outline"></ion-icon>
+          </span>
+        </span>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="showNextCard()" >
+        <ion-icon name="copy-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -38,7 +43,7 @@
       </div>
         <img [src] = "'./assets/' + this.cardOnScreen.picture" alt="this.selectedCard.name">
         <p class="fortune">{{ this.cardOnScreen.fortune }}</p>
-        <ion-button class="moreInfo" size="small" routerLink="/info">
+        <ion-button class="moreInfo" size="small"  [routerLink]="['/info',{pageSec: 'autumn'}]">
           더 자세한 내용을 알고 싶으시다면
         </ion-button>
     </div>  
@@ -57,7 +62,7 @@
       </div>
         <img [src] = "'./assets/' + this.selectedCard.picture" alt="this.selectedCard.name">
         <p class="fortune">{{ this.selectedCard.fortune }}</p>
-        <ion-button class="moreInfo" size="small" routerLink="/info">
+        <ion-button class="moreInfo" size="small" [routerLink]="['/info',{pageSec: 'summer'}]">
           더 자세한 내용을 알고 싶으시다면
         </ion-button>
     </div>

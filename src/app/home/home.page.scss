@@ -4,25 +4,28 @@ ion-header {
 
   ion-toolbar {
     --background: #260124;//#e7dec6;
-
-    ion-buttons {
+    
+    ion-title {
+      font-family: GowunBatang-Bold;
+      font-size: 10pt;
+      text-align: center;
+      //padding-top: 11pt;
+      //padding-left: 45px;
+      color: #e7dec6;//#260124;
+      background: #260124;//#e7dec6;
+      //--background-hover: black;
+      // #header-icon{
+      //   font-size: 12pt;
+      // }  
+      ion-buttons {
       --background: #260124; //#e7dec6;
-
-      ion-button {
+        ion-button {
         --background: #260124;//#e7dec6;
         //--background-hover: #a00498;
-      
-        ion-title {
-          font-family: GowunBatang-Bold;
-          font-size: 12pt;
-          padding-top: 11pt;
-          padding-left: 45px;
-          color: #e7dec6;//#260124;
-          background: #260124;//#e7dec6;
-          //--background-hover: black;
-          #header-icon{
-            font-size: 12pt;
-          }
+          //#header-icon {
+            font-size: 8pt;
+            color: #e7dec6;
+          //}       
         }
       }
     }

@@ -31,7 +31,7 @@ export class PeriodPickerPage implements OnInit, OnDestroy {
     this.cardsInfoSubscription
       = this.cardsService.getCardsInfo$()
         .subscribe((cardsInfo)=>{
-          if(cardsInfo !== null){
+          if( cardsInfo.periodDays !== null && cardsInfo.firstDay !== null){
               this.periodDaysOnScreen = cardsInfo.periodDays.toString() + '일'
               this.firstDayOnScreen = cardsInfo.firstDay.toString();
             }

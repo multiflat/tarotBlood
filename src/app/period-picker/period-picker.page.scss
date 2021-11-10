@@ -22,22 +22,24 @@ ion-content{
   --background: 
   radial-gradient(
       circle at 50% 0,
-      rgba(242, 77, 184, 0.2),
+      rgba(242, 77, 184, 0.4),
       rgba(242, 77, 184, 0)
       70.71%
     ),
     radial-gradient(
       circle at 6.7% 75%,
-      rgba(108, 108, 249, 0.4),
+      rgba(143, 108, 249, 0.4),
       rgba(108, 108, 249, 0) 
       70.71%
     ),
     radial-gradient(
-      circle at 99% 97%,
-      rgba(234, 255, 0, 0.2),
-      rgba(0,255,0, 0)
+      circle at 93.3% 75%,
+      rgba(129, 99, 247, 0.4),
+      rgba(99, 171, 247, 0)
     ) 
     beige;
+
+  
 
   ion-list{
     background: transparent;//#eaf6fd;//#e7dec6;

@@ -7,7 +7,7 @@ import { map, shareReplay } from "rxjs/operators";
 })
 export class DayAlarmService {
   private day$: Observable<Date> = timer(
-    0, 1000 * 60 * 60 * 24).pipe(
+    0, 1000 * 60 * 60 * 24).pipe(//0, 3000).pipe(
       map(day => new Date()),
       shareReplay(1)
     );

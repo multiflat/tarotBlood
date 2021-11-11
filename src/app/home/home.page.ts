@@ -42,14 +42,14 @@ export class HomePage implements OnInit {
       = this.cardsService.getCardsInfo$()
         .subscribe((cardsInfo)=>{
           this.cardsInfo = cardsInfo;
-          if(this.cardsInfo.threeCardsId === null){
-            this.navCtrl.navigateRoot("period-picker");
-          } else {
+          // if(this.cardsInfo.threeCardsId === null){
+          //   this.navCtrl.navigateRoot("period-picker");
+          // } else {
             if(this.cardsInfo.isCardSelected){
               this.selectedCard = this.cardFortunes.find(cardfortune => cardfortune.id === this.cardsInfo.selectedCardId);
             }
             this.show3cards();
-          }
+          // }
           this.titleIndex = 0;
         });
         
@@ -57,8 +57,9 @@ export class HomePage implements OnInit {
         = this.dayAlarm.day
           .subscribe((today: Date) => {
             console.log("now and after 24h...");
-            //this.navCtrl.navigateRoot("home");
+            this.cardsInfo.threeCardsId = this.cardsService.next3cardsId(this.cardsInfo.threeCardsId, 0);
             this.cardsInfo.isCardSelected = false;
+            this.show3cards();
           }
         );
   }

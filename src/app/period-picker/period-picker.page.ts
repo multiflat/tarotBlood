@@ -3,6 +3,7 @@ import { IonDatetime, PickerController, AlertController, NavController } from "@
 import { PickerOptions } from "@ionic/core";
 import { Subscription } from 'rxjs';
 import { CardsService } from 'src/app/services/cards.service';
+import { CardsInfo } from '../interfaces/cardsInfo';
 
 @Component({
   selector: 'app-period-picker',
@@ -15,6 +16,7 @@ export class PeriodPickerPage implements OnInit, OnDestroy {
   public guide: string;
   private now = new Date();
   private cardsInfoSubscription: Subscription;
+  private cardsInfo: CardsInfo;
 
   constructor(private pickerCtrl: PickerController,
               private alertCtrl: AlertController,
@@ -27,6 +29,7 @@ export class PeriodPickerPage implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.cardsInfoSubscription.unsubscribe();
   }
+  
   loadCardsInfo(){
     this.cardsInfoSubscription
       = this.cardsService.getCardsInfo$()
@@ -35,7 +38,17 @@ export class PeriodPickerPage implements OnInit, OnDestroy {
               this.periodDaysOnScreen = cardsInfo.periodDays.toString() + '일'
               this.firstDayOnScreen = cardsInfo.firstDay.toString();
             }
+          this.cardsInfo = cardsInfo;
+          console.log("in Picker OnInit, isCardSelected: ", this.cardsInfo.isCardSelected);
         })
+  }
+  backToHome(){
+    if(typeof(this.periodDaysOnScreen) === 'string' //this.firstDayOnScreen !== null 
+      && typeof(this.firstDayOnScreen) === 'string'){//this.periodDaysOnScreen !== null){
+      this.navCtrl.navigateRoot("");
+     } else {
+       this.periodInputCheck();
+     }
   }
   minDate() {
     return (this.now.getFullYear() - 1);
@@ -45,7 +58,7 @@ export class PeriodPickerPage implements OnInit, OnDestroy {
   }
   getFirstDay(){ 
     if(typeof(this.periodDaysOnScreen) === 'string'){  
-      this.cardsService.select3cards(this.firstDayOnScreen, this.periodDaysOnScreen, this.now);
+      //this.cardsService.select3cards(this.firstDayOnScreen, this.periodDaysOnScreen, this.now);
     }
   }
   async getPeriodDays() {
@@ -55,9 +68,9 @@ export class PeriodPickerPage implements OnInit, OnDestroy {
                 },{ text:'Done',
                   handler:(value: any) => {
                     this.periodDaysOnScreen = value.period.value;
-                    if(typeof(this.firstDayOnScreen) === 'string'){
-                      this.cardsService.select3cards(this.firstDayOnScreen, this.periodDaysOnScreen, this.now);
-                    }          
+                    // if(typeof(this.firstDayOnScreen) === 'string'){
+                    //   this.cardsService.select3cards(this.firstDayOnScreen, this.periodDaysOnScreen, this.now);
+                    // }          
                   }
                 }
       ],
@@ -90,8 +103,9 @@ export class PeriodPickerPage implements OnInit, OnDestroy {
     this.guide = "먼저 대략적인 날짜를 선택해보세요. 타로 블러드는 카드를 고르면서 자연스럽게 주기를 발견하도록 도웁니다. 매일 타로 블러드를 사용하면서 당신만의 몸의 리듬을 만들어 보세요.";
   }
   goHomePage(){
-    if(this.firstDayOnScreen !== null 
-      && this.periodDaysOnScreen !== null){
+    if(typeof(this.periodDaysOnScreen) === 'string' //this.firstDayOnScreen !== null 
+      && typeof(this.firstDayOnScreen) === 'string'){//this.periodDaysOnScreen !== null){
+      this.cardsService.select3cards(this.firstDayOnScreen, this.periodDaysOnScreen, this.now);///
       this.navCtrl.navigateRoot("");
      } else {
        this.periodInputCheck();

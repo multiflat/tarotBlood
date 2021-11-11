@@ -3,16 +3,18 @@
 
 
 ion-header{
-  text-align: center;
   background: #260124;//#260124;
-
+  text-align: center;
   ion-toolbar{
     --background: #260124;//#260124fe;
+    
     ion-title {
       .title-text{
+        //text-align: center;
         color: #e7dec6;//white;
         font-family: GowunBatang-Bold;
         font-size: 15pt;
+        
       }    
     }
   }  

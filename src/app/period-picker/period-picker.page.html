@@ -3,6 +3,11 @@
     <ion-title>
       <span class="title-text">주기 기억하기</span>
     </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="backToHome()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -19,8 +24,8 @@
     </ion-item>
     <ion-item>
       <ion-datetime [min]="minDate()" [max]="maxDate()" displayFormat="YYYY-MM-DD" #firstDay 
-      [(ngModel)] = "firstDayOnScreen" 
-      (ionChange)= "getFirstDay()"></ion-datetime>
+      [(ngModel)] = "firstDayOnScreen" ></ion-datetime>
+      <!-- (ionChange)= "getFirstDay()"></ion-datetime> -->
     </ion-item>
     <ion-item>
       <ion-label><span class="item-text">당신의 주기는 며칠인가요?</span></ion-label>
